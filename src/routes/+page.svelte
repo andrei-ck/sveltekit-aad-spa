@@ -8,24 +8,23 @@
     isUserAuthenticated.subscribe((value) => {
         isAuthenticated = value;
     });
-    let appToken = "";
-    tokenApp.subscribe((value) => {
-        appToken = value;
-    })    
 
     let authModule:AuthModule;
     let tokenEncoded = "";
     let tokenDecoded = "";
 
     onMount(async () => {
+        // Instantiate Public Client Application
         authModule = new AuthModule();
-        console.log(`INFO - Auth Module instantiated`);
         console.dir(authModule);
+        
+        // Handle Redirect APIs - https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/initialization.md#redirect-apis
         authModule.loadAuthModule();
 
+        // If the user is unauthenticated, redirect to login
         if(!isAuthenticated) {
             let resp = await authModule.login("loginRedirect");
-            console.dir(resp);
+            
         }
     });
 
@@ -39,4 +38,4 @@
 <h1>Token</h1>
 
 <p>Encoded: {tokenEncoded}</p>
-<p>Decoded: {tokenDecoded}</p>
+<p>Decoded: {tokenDecoded}</p> 

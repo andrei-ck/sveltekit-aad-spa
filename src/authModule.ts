@@ -61,7 +61,8 @@ export class AuthModule {
         this.account = null;
 
         this.loginRequest = {
-            scopes: []
+            scopes: [],
+            redirectUri: "http://localhost:5173",
         };
 
         this.loginRedirectRequest = {
